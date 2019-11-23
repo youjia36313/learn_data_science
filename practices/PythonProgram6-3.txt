@@ -1,0 +1,62 @@
+%matplotlib inline
+import numpy as np
+import matplotlib.pyplot as plt
+np.random.seed(0)
+n = 5
+mu, sig = 3, 2
+list_s2 = []
+for i in range(100000):
+    array_x = np.random.normal(mu, sig, n)
+    s2 = np.var(array_x)
+    list_s2 += [s2]
+print('標本分散の平均：',np.mean(list_s2))
+plt.hist(list_s2, bins=100)
+
+
+
+np.random.seed(0)
+n = 5
+mu, sig = 3, 2
+list_u2 = []
+for i in range(100000):
+    array_x = np.random.normal(mu, sig, n)
+    u2 = np.var(array_x, ddof=1)
+    list_u2 += [u2]    
+print('不偏分散の平均：',np.mean(list_u2))
+plt.hist(list_u2, bins=100)
+
+
+
+np.random.seed(0)
+n = 10
+mu, sig = 50, 10
+list_m = []
+list_med = []
+for i in range(100000):
+    array_x = np.random.normal(mu, sig, n)
+    m = np.mean(array_x)
+    med = np.median(array_x)
+    list_m += [m]
+    list_med += [med]
+print('平均値の分散：', np.var(list_m))
+print('中央値の分散：', np.var(list_med))
+plt.hist(list_m, bins=range(35,66), alpha=0.3,  color='b')
+plt.hist(list_med, bins=range(35,66), alpha=0.3,  color='r')
+plt.legend(['mean', 'median'])
+
+
+
+np.random.seed(0)
+mu, sig = 3, 2
+list_n = range(100, 100001, 100)
+list_x = []
+list_s2 = []
+for i in list_n:
+    array_x = np.random.normal(mu, sig, 100)
+    list_x += list(array_x)
+    s2 = np.var(list_x)
+    list_s2 += [s2]
+plt.xlim([0, 100000])
+plt.ylim([3, 5])
+plt.plot([100, 100000], [4, 4])
+plt.plot(list_n, list_s2)
